@@ -24,8 +24,6 @@ class RARemote(Thread):
     def run(self):
 
         while True:
-            if not self.player.checkRunning():
-                break
             msg = self.serial.readline()
             
             if msg == RARemote.PLAY_PAUSE:
