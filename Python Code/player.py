@@ -89,8 +89,8 @@ class RAMP3Player(object):
         #self.isPlaying = True
         #runner = RAMP3PlayerRunner(self.playerProcess)
         #runner.start()
-        #remote = RARemote(self)
-        #remote.start()
+        remote = RARemote(self)
+        remote.start()
 
         self.playerProcess.wait()
 
