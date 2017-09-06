@@ -33,6 +33,22 @@ class RAMP3Player(object):
         self.isPlaying = False
         self.__initPlayer()
 
+    def rewind(self):
+        if self.checkRunning():
+            subprocess.Popen("echo -n $'\x1b\x5b\x44' > /tmp/mp3player", shell=True)
+
+    def forward(self):
+        if self.checkRunning():
+            subprocess.Popen("echo -n $'\x1b\x5b\x43' > /tmp/mp3player", shell=True)
+
+    def volume_up(self):
+        if self.checkRunning:
+            subprocess.Popen("echo -n + > /tmp/mp3player", shell=True)
+
+    def volume_down(self):
+        if self.checkRunning:
+            subprocess.Popen("echo -n - > /tmp/mp3player", shell=True)
+
     def playPause(self):
         if self.checkRunning():
             if self.isPlaying:
