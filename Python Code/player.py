@@ -50,7 +50,7 @@ class RAMP3Player(object):
         mkfifo = subprocess.Popen("mkfifo /tmp/mp3player", shell=True)
         mkfifo.wait()
         self.playerProcess = subprocess.Popen("omxplayer %s < /tmp/mp3player" % self.filename, shell=True)
-        subprocess.Popen("echo -n p >/tmp/mp3player", shell=True)
+        subprocess.Popen("echo -n . >/tmp/mp3player", shell=True)
         runner = RAMP3PlayerRunner(self.playerProcess)
         runner.start()
         self.play() #temporary
