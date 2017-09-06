@@ -33,27 +33,23 @@ class RAMP3Player(object):
         self.isPlaying = False
         self.__initPlayer()
 
-    def play(self):
+    def playPause(self):
         if self.checkRunning():
-            subprocess.Popen("echo -n . >/tmp/mp3player", shell=True)
-            """
             if self.isPlaying:
                 self.isPlaying = False
                 subprocess.Popen("echo -n p >/tmp/mp3player", shell=True)
             else:
                 subprocess.Popen("echo -n . >/tmp/mp3player", shell=True)
                 self.isPlaying = True
-            """
-            print "Running"
 
     def __initPlayer(self):
         mkfifo = subprocess.Popen("mkfifo /tmp/mp3player", shell=True)
         mkfifo.wait()
         self.playerProcess = subprocess.Popen("omxplayer %s < /tmp/mp3player" % self.filename, shell=True)
-        subprocess.Popen("echo -n . >/tmp/mp3player", shell=True)
+        subprocess.Popen("echo -n . >/tmp/mp3player", shell=True) #start right away
+        self.isPlaying = True
         runner = RAMP3PlayerRunner(self.playerProcess)
         runner.start()
-        self.play() #temporary
 
     def checkRunning(self):
         poll = self.playerProcess.poll()
