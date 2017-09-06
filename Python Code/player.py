@@ -4,7 +4,10 @@ import serial
 import time
 from threading import Thread
 
-class RARemote(object):
+SERIAL_PORT = "/dev/ttyACM0"
+SERIAL_BAUD_RATE = 9600
+
+class RARemote(Thread):
 
     PLAY_PAUSE = "FDA05F"
     OFF = "FD00FF"
@@ -13,8 +16,28 @@ class RARemote(object):
     VOLUME_UP = "FD807F"
     VOLUME_DOWN = "FD906F"
 
-    def __init__(self):
-        pass
+    def __init__(self, player):
+        super(RARemote, self).__init__()
+        self.player = player
+        self.serial = serial.Serial(SERIAL_PORT, SERIAL_BAUD_RATE)
+    
+    def run(self):
+
+        while True:
+            if not self.player.checkRunning():
+                break
+            msg = self.serial.readline()
+            
+            if msg == PLAY_PAUSE:
+                self.player.playPause()
+            elif msg == REWIND:
+                self.player.rewind()
+            elif msg == FORWARD:
+                self.player.forward()
+            elif msg == VOLUME_UP:
+                self.player.volume_up()
+            elif msg == VOLUME_DOWN:
+                self.player.volume_down()
 
 class RAMP3PlayerRunner(Thread):
 
@@ -66,6 +89,8 @@ class RAMP3Player(object):
         self.isPlaying = True
         runner = RAMP3PlayerRunner(self.playerProcess)
         runner.start()
+        remote = RARemote(self)
+        remote.start()
 
     def checkRunning(self):
         poll = self.playerProcess.poll()
