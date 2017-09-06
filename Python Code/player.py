@@ -25,28 +25,25 @@ class RARemote(Thread):
 
         while True:
             msg = self.serial.readline()
-            print msg
-            """
-            if msg == RARemote.PLAY_PAUSE:
+            if msg.strip() == RARemote.PLAY_PAUSE:
                 print "Play/Pause"
                 if self.isPlaying:
                     subprocess.Popen("echo -n p >/tmp/mp3player", shell=True)
                 else:
                     subprocess.Popen("echo -n . >/tmp/mp3player", shell=True)
                     self.isPlaying = True
-            elif msg == RARemote.REWIND:
+            elif msg.strip() == RARemote.REWIND:
                 subprocess.Popen("echo -n $'\x1b\x5b\x44' > /tmp/mp3player", shell=True)
                 print "Rewind"
-            elif msg == RARemote.FORWARD:
+            elif msg.strip() == RARemote.FORWARD:
                 subprocess.Popen("echo -n $'\x1b\x5b\x43' > /tmp/mp3player", shell=True)
                 print "Forward"
-            elif msg == RARemote.VOLUME_UP:
+            elif msg.strip() == RARemote.VOLUME_UP:
                 subprocess.Popen("echo -n + > /tmp/mp3player", shell=True)
                 print "Volume Up"
-            elif msg == RARemote.VOLUME_DOWN:
+            elif msg.strip() == RARemote.VOLUME_DOWN:
                 subprocess.Popen("echo -n - > /tmp/mp3player", shell=True)
                 print "Volume Down"
-            """
 
 if __name__ == "__main__":
     remote = RARemote()
