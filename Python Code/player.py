@@ -87,13 +87,11 @@ class RAMP3Player(object):
         mkfifo.wait()
         self.playerProcess = subprocess.Popen("omxplayer %s < /tmp/mp3player" % self.filename, shell=True)
         subprocess.Popen("echo -n . >/tmp/mp3player", shell=True) #start right away
-        #self.isPlaying = True
-        #runner = RAMP3PlayerRunner(self.playerProcess)
-        #runner.start()
+        self.isPlaying = True
+        runner = RAMP3PlayerRunner(self.playerProcess)
+        runner.start()
         remote = RARemote(self)
         remote.start()
-
-        self.playerProcess.wait()
 
     def checkRunning(self):
         poll = self.playerProcess.poll()
