@@ -28,15 +28,15 @@ class RARemote(Thread):
                 break
             msg = self.serial.readline()
             
-            if msg == PLAY_PAUSE:
+            if msg == RARemote.PLAY_PAUSE:
                 self.player.playPause()
-            elif msg == REWIND:
+            elif msg == RARemote.REWIND:
                 self.player.rewind()
-            elif msg == FORWARD:
+            elif msg == RARemote.FORWARD:
                 self.player.forward()
-            elif msg == VOLUME_UP:
+            elif msg == RARemote.VOLUME_UP:
                 self.player.volume_up()
-            elif msg == VOLUME_DOWN:
+            elif msg == RARemote.VOLUME_DOWN:
                 self.player.volume_down()
 
 class RAMP3PlayerRunner(Thread):
