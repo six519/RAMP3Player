@@ -25,7 +25,8 @@ class RARemote(Thread):
 
         while True:
             msg = self.serial.readline()
-            
+            print msg
+            """
             if msg == RARemote.PLAY_PAUSE:
                 print "Play/Pause"
                 if self.isPlaying:
@@ -45,6 +46,7 @@ class RARemote(Thread):
             elif msg == RARemote.VOLUME_DOWN:
                 subprocess.Popen("echo -n - > /tmp/mp3player", shell=True)
                 print "Volume Down"
+            """
 
 if __name__ == "__main__":
     remote = RARemote()
