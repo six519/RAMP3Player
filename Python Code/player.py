@@ -29,9 +29,9 @@ class RAMP3Player(object):
 
     def __init__(self, filename):
         self.filename = filename
-        self.__initPlayer()
         self.playerProcess = None
         self.isPlaying = False
+        self.__initPlayer()
 
     def play(self):
         if self.checkRunning():
