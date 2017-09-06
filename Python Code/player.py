@@ -58,6 +58,7 @@ class RAMP3Player(object):
 
     def rewind(self):
         if self.checkRunning():
+            print "rewind"
             subprocess.Popen("echo -n $'\x1b\x5b\x44' > /tmp/mp3player", shell=True)
 
     def forward(self):
